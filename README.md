@@ -23,4 +23,4 @@ Beam Alert will provide a web-based control panel and web-based alerting system 
 
 ###### Suggestions
 
-If you have any suggestions do not be afraid to create and issue here on GitHub or send an email to admin@theibex.net with the subject "Beam.Pro Bot Suggestion".
+If you have any suggestions do not be afraid to create an issue here on GitHub or send an email to admin@theibex.net with the subject "Beam.Pro Bot Suggestion".
