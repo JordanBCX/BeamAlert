@@ -1,0 +1,44 @@
+{
+  "name": "beam-client-node",
+  "version": "0.5.1",
+  "description": "Client library for interacting with the beam API.",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha test/unit --recursive",
+    "cover": "istanbul cover _mocha -- test/unit --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WatchBeam/beam-client-node.git"
+  },
+  "keywords": [
+    "beam",
+    "client",
+    "api",
+    "library",
+    "oath"
+  ],
+  "author": "Connor Peet <connor@peet.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WatchBeam/beam-client-node/issues"
+  },
+  "homepage": "https://github.com/WatchBeam/beam-client-node",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-subset": "^1.2.0",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.2.1",
+    "sinon": "^1.14.0",
+    "sinon-chai": "^2.8.0",
+    "typings": "^1.0.4"
+  },
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "error": "^7.0.2",
+    "lodash": "^4.0.0",
+    "request": "^2.53.0",
+    "ws": "^1.0.1"
+  }
+}
