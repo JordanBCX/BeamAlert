@@ -3,6 +3,13 @@ var validator = require("./requires/validator.js");
 var chatBot = require("./requires/chatbot.js")
 var fs = require("fs");
 
+if (process.argv.length != 3) {
+    console.log("--Error--")
+    console.log("You must enter the target channel as a parameter. (i.e 'node app.js J4Wx')")
+    process.exit();
+}
+
+/*
 var args = process.argv.slice(2)
 
 var port = 3000;
@@ -32,3 +39,6 @@ if (!(validator.ip(binding))) {
 }
 
 console.log("Server is running on " + binding + ":" + port);
+*/
+
+console.log("Launching BeamAlerts!")
