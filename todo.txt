@@ -9,6 +9,7 @@ TODO: Chat Bot - Follower Alert
 TODO: Chat Bot - Host Alert
 TODO: Chat Bot - Subscriber Alert
 TODO: Chat Bot - Re-Subscription Alert
+TODO: Chat Bot - Giveaway System (Keys or message)
 TODO: Website - Landing Page
 TODO: Website - Dashboard
 TODO: Website - Settings
