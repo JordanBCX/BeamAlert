@@ -53,6 +53,10 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target +"?fields=i
                         socket.call('msg', ["I'm BeamAlert, created by @J4Wx and @jordanlee833"]);
                         console.log(`Infoed ${data.user_name}`);
                     }
+                    if (data.message.message[0].data.toLowerCase().startsWith('!github')) {
+                        socket.call('msg', ["BeamAlert can be downloaded at https://github.com/jordanlee833/BeamAlert"]);
+                        console.log(`githubbed ${data.user_name}`);
+                    }
                 });
 
                 // Handle errors
