@@ -1,3 +1,7 @@
+// Copyright (c) 2016 TheIbex.Net All Rights Reserved.
+// @File: ./app.js
+// @Author: @J4WX (http://beam.pro/)
+// @Description: http://github.com/jordanlee833/BeamAlerts - Web Base
 "use strict";
 var validator = require("./requires/validator.js");
 var chatBot = require("./requires/chatbot.js")
