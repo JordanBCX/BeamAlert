@@ -1,0 +1,7 @@
+TODO: Chat Bot - Login
+TODO: Chat Bot - On Live
+TODO: Chat Bot - On Offline
+TODO: Chat Bot - Follower Alert
+TODO: Chat Bot - Host Alert
+TODO: Chat Bot - Subscriber Alert
+TODO: Chat Bot - Re-Subscription Alert
