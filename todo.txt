@@ -26,9 +26,5 @@ TODO: Back End {
     This means that the server can provide detailed information regarding who is currently running the bot.
 }
 
-NOTE: Change todo-show settings {
-    Make "ignore these paths" = "**/node_modules/**, **/vendor/**, **/bower_components/**, **/ext/**".
-}
-
 CHANGED: Delete Login.txt and first use "node setup.js", follow the instructions and blammo, user directory is created and used.
-Add 
+Add

@@ -1,0 +1,37 @@
+{
+  "name": "BeamAlerts",
+  "description": "Beam Alerts is a notification bot built for beam.pro using node.js",
+  "version": "1.0.0",
+  "contributors": [
+    {
+      "name": "Jamie Wood",
+      "email": "jamie.wood@theibex.net",
+      "web": ""
+    },
+    {
+      "name": "Jordan McLean",
+      "email": "jordan.mclean@theibex.net",
+      "web": ""
+    }
+  ],
+  "dependencies": {
+    "bluebird": "3.4.1",
+    "colors": "1.1.2",
+    "lodash": "4.13.1",
+    "moment": "2.14.1",
+    "prompt": "1.0.0",
+    "request": "2.72.0",
+    "ws": "1.1.1"
+  },
+  "bugs": {
+    "web": "https://github.com/jordanlee833/BeamAlert/issues"
+  },
+  "repository": [
+    {
+      "type": "git",
+      "url": "https://github.com/jordanlee833/BeamAlert.git"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "theibex.net"
+}
