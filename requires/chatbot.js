@@ -17,8 +17,6 @@ var setting = settings.load();
 
 var metUsers = macros.metLoad();
 
-console.log(metUsers)
-
 var start = moment();
 
 //Grab target channel param
