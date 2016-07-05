@@ -5,13 +5,24 @@
 
 "use strict";
 var validator = require("./requires/validator.js");
-var chatBot = require("./requires/chatbot.js")
 var fs = require("fs");
 
 if (process.argv.length != 3) {
     console.log("--Error--")
     console.log("You must enter the target channel as a parameter. (i.e 'node app.js J4Wx')")
     process.exit();
+}
+
+try {
+    var stats = fs.lstatSync('./user');
+
+    if (stats.isDirectory()) {
+        var chatBot = require("./requires/chatbot.js")
+        console.log("Launching BeamAlerts!")
+    }
+} catch (e) {
+    console.log("No user folder found. Please run 'node setup.js' first.")
+    console.log(e);
 }
 
 /* REVIEW: This may be removed if this version of the bot is intended purely for local hosted chat-bot use.
@@ -45,5 +56,3 @@ if (!(validator.ip(binding))) {
 
 console.log("Server is running on " + binding + ":" + port);
 */
-
-console.log("Launching BeamAlerts!")

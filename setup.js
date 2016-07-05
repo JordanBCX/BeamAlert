@@ -8,7 +8,7 @@ console.log("Welcome to the BeamAlerts setup tool.");
 console.log("");
 
 try {
-    stats = fs.lstatSync('./user');
+    var stats = fs.lstatSync('./user');
 
     if (stats.isDirectory()) {
         console.log("You already have a user folder. If you would like to reconfigure BeamAlerts then delete your current user folder and run this script again.")
