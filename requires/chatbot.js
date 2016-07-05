@@ -15,6 +15,10 @@ var moment = require('moment')
 var settings = require("../requires/settings")
 var setting = settings.load();
 
+var metUsers = macros.metLoad();
+
+console.log(metUsers)
+
 var start = moment();
 
 //Grab target channel param
@@ -58,6 +62,18 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 // Greet a joined user
                 socket.on ('UserJoin', data => {
                     //socket.call('msg', [`Hi ${data.username}! I'm pingbot! Write !ping and I will pong back!`]);
+                    metUsers.contains(data.username, function(found) {
+                        if (found) {
+
+                        } else {
+                            metUsers.push(data.username)
+                            fs.writeFile('./user/metusers.txt', `${metUsers.join(":")}`, function (err) {
+                                if (err) return console.log(err);
+                            })
+                            socket.call('msg', ["Hello, " + data.username + ". Welcome to the stream!"]);
+                            macros.CommandLog(moment().format(), data.username, "first_join")
+                        }
+                    })
                 });
 
                 //

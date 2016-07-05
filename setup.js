@@ -32,6 +32,9 @@ try {
         fs.writeFile('./user/settings.json', contents, function (err) {
             if (err) return console.log(err);
             console.log("Settings created! You can now run the bot.");
+        fs.writeFile('./user/metusers.txt', `${result.username}`, function (err) {
+            if (err) return console.log(err);
+        })
         });
     });
 };
