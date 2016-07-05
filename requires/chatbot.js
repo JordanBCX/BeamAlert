@@ -12,8 +12,6 @@ var macros = require('./macros.js');
 var moment = require('moment')
 var settings = require("../requires/settings")
 var setting = settings.load();
-console.log(setting.username);
-console.log(setting.password);
 
 var start = moment();
 
