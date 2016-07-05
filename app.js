@@ -2,6 +2,7 @@
 // @File: ./app.js
 // @Author: @J4WX (http://beam.pro/)
 // @Description: http://github.com/jordanlee833/BeamAlerts - Web Base
+
 "use strict";
 var validator = require("./requires/validator.js");
 var chatBot = require("./requires/chatbot.js")
@@ -13,7 +14,7 @@ if (process.argv.length != 3) {
     process.exit();
 }
 
-/*
+/* REVIEW: This may be removed if this version of the bot is intended purely for local hosted chat-bot use.
 var args = process.argv.slice(2)
 
 var port = 3000;

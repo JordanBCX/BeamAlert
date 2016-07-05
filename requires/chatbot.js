@@ -1,5 +1,5 @@
 // Copyright (c) 2016 TheIbex.Net All Rights Reserved.
-// @File: ./requires/chatbot.js 
+// @File: ./requires/chatbot.js
 // @Author: @Jordanlee833 & @J4WX (http://beam.pro/)
 // @Description: http://github.com/jordanlee833/BeamAlerts - Chat Bot Backbone
 "use strict";
@@ -10,6 +10,10 @@ var fs = require("fs");
 var https = require("https");
 var macros = require('./macros.js');
 var moment = require('moment')
+var settings = require("../requires/settings")
+var setting = settings.load();
+console.log(setting.username);
+console.log(setting.password);
 
 var start = moment();
 
@@ -27,14 +31,9 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
 
             let userInfo;
 
-            var content = fs.readFileSync('./login.txt', {encoding: "utf-8"});
-            var split = content.split(":");
-            var username = split[1];
-            var password = split[2];
-
             client.use ('password', {
-                username: username,
-                password: password
+                username: setting.username,
+                password: setting.password
             })
 
             .attempt()
@@ -60,7 +59,7 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                         macros.CommandLog(moment().format(), data.user_name, "!ping");
                     }
                     else if (data.message.message[0].data.toLowerCase().startsWith('!info')) {
-                        socket.call('msg', ["I'm BeamAlert, created by @J4Wx and @jordanlee833 of theibex.net."]);
+                        socket.call('msg', ["I'm " + setting.bot_name + ". I'm running BeamAlert created by @J4Wx and @jordanlee833 of theibex.net."]);
                         macros.CommandLog(moment().format(), data.user_name, "!info");
                     }
                     else if (data.message.message[0].data.toLowerCase().startsWith('!github')) {
@@ -84,7 +83,7 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                         }
                     }
                   	else if (data.message.message[0].data.toLowerCase().startsWith('!uptime')) {
-                     	socket.call('msg', ["BeamAlerts has been running for " + moment.utc(moment(moment(),"DD/MM/YYYY HH:mm:ss").diff(moment(start,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")]);
+                     	socket.call('msg', [setting.bot_name + " has been running BeamAlerts for " + moment.utc(moment(moment(),"DD/MM/YYYY HH:mm:ss").diff(moment(start,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")]);
                       	macros.CommandLog(moment().format(), data.user_name, "!uptime");
                     }
                     //This stays at the bottom
@@ -100,8 +99,8 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
 
                 return socket.auth (channel, userInfo.id, response.body.authkey)
                 .then (() => {
-                    console.log("Successfully connected to " + target + "'s stream as " + username);
-                    return socket.call('msg', ['Hi! I\'m BeamAlerts!']);
+                    console.log("Successfully connected to " + target + "'s stream as " + setting.username);
+                    return socket.call('msg', ['Hi! I\'m ' + setting.bot_name + '!']);
                 });
             })
             .catch (error => {
