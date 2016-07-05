@@ -5,13 +5,11 @@
   "contributors": [
     {
       "name": "Jamie Wood",
-      "email": "jamie.wood@theibex.net",
-      "web": ""
+      "email": "jamie.wood@theibex.net"
     },
     {
       "name": "Jordan McLean",
-      "email": "jordan.mclean@theibex.net",
-      "web": ""
+      "email": "jordan.mclean@theibex.net"
     }
   ],
   "dependencies": {
