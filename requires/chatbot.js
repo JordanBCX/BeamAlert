@@ -10,18 +10,26 @@ var fs = require("fs");
 var https = require("https");
 var macros = require('./macros.js');
 var moment = require('moment')
+
+//Load Settings
 var settings = require("../requires/settings")
 var setting = settings.load();
 
 var start = moment();
 
+//Grab target channel param
 var target = process.argv[2];
 
+//Attempt to grab Channel ID from beam API
 var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=id", function (response) {
     var body = "";
+
+    //Compile Response
     response.on ('data', function (chunk) {
         body += chunk;
     });
+
+    //On Complete Response
     response.on ('end', function() {
         if (response.statusCode === 200) {
             var info = JSON.parse(body)
@@ -29,16 +37,20 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
 
             let userInfo;
 
+            //Assign username and password from settings file
             client.use ('password', {
                 username: setting.username,
                 password: setting.password
             })
 
+            //Attempt Connection
             .attempt()
+
             .then (response => {
                 userInfo = response.body;
                 return client.chat.join(channel);
             })
+
             .then (response => {
                 // Chat connection
                 const socket = new BeamSocket (response.body.endpoints).boot();
@@ -65,7 +77,7 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                         macros.CommandLog(moment().format(), data.user_name, "!github");
                     }
                     else if (data.message.message[0].data.toLowerCase().startsWith('!help')) {
-                        socket.call('msg', ["The default commands are !ping, !info and !github."]);
+                        socket.call('msg', ["The information about BeamAlerts default commands can be found on it's github, at https://github.com/jordanlee833/BeamAlert."]);
                         macros.CommandLog(moment().format(), data.user_name, "!help");
                     }
                   	else if (data.message.message[0].data.toLowerCase().startsWith('!roll')) {
