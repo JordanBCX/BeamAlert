@@ -10,6 +10,7 @@ var fs = require("fs");
 var https = require("https");
 var macros = require('./macros.js');
 var moment = require('moment')
+var substitution = require("./substitution")
 
 //Load Settings
 var settings = require("../requires/settings")
@@ -68,7 +69,7 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                             fs.writeFile('./user/metusers.txt', `${metUsers.join(":")}`, function (err) {
                                 if (err) return console.log(err);
                             })
-                            socket.call('msg', ["Hello, " + data.username + ". Welcome to the stream!"]);
+                            socket.call('msg', [substitution.sub("welcome",data.username)]);
                             macros.CommandLog(moment().format(), data.username, "first_join")
                         }
                     })
@@ -79,35 +80,35 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 //
                 socket.on ('ChatMessage', data => {
                     if (data.message.message[0].data.toLowerCase().startsWith('!ping')) {
-                        socket.call('whisper', [data.user_name, `@${data.user_name} PONG!`]);
+                        socket.call('whisper', [data.user_name, substitution.sub("ping",data.user_name)]);
                         macros.CommandLog(moment().format(), data.user_name, "!ping");
                     }
                     else if (data.message.message[0].data.toLowerCase().startsWith('!info')) {
-                        socket.call('msg', ["I'm " + setting.bot_name + ". I'm running BeamAlert created by @J4Wx and @jordanlee833 of theibex.net."]);
+                        socket.call('msg', [substitution.sub("info",setting.bot_name)]);
                         macros.CommandLog(moment().format(), data.user_name, "!info");
                     }
                     else if (data.message.message[0].data.toLowerCase().startsWith('!github')) {
-                        socket.call('msg', ["BeamAlert can be downloaded at https://github.com/jordanlee833/BeamAlert."]);
+                        socket.call('msg', [substitution.sub("github")]);
                         macros.CommandLog(moment().format(), data.user_name, "!github");
                     }
                     else if (data.message.message[0].data.toLowerCase().startsWith('!help')) {
-                        socket.call('msg', ["The information about BeamAlerts default commands can be found on it's github, at https://github.com/jordanlee833/BeamAlert."]);
+                        socket.call('msg', [substitution.sub("help")]);
                         macros.CommandLog(moment().format(), data.user_name, "!help");
                     }
                   	else if (data.message.message[0].data.toLowerCase().startsWith('!roll')) {
                       	if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
                           	var max = parseInt(data.message.message[0].data.toLowerCase().split(" ")[1]);
                             var rInt = Math.round(Math.random() * (max - 1) + 1);
-                          	socket.call('msg', ["Random number is: " + rInt]);
+                          	socket.call('msg', [substitution.sub("roll",rInt)]);
                        	 	macros.CommandLog(moment().format(), data.user_name, "!roll", "roll result of " + rInt + " with max of " + max);
                         } else {
                             var rInt = Math.round(Math.random() * (6 + -1) + 1);
-                          	socket.call('msg', ["Random number is: " + rInt]);
+                          	socket.call('msg', [substitution.sub("roll",rInt)]);
                        	 	macros.CommandLog(moment().format(), data.user_name, "!roll", "roll result of " + rInt + " with max of 6.");
                         }
                     }
                   	else if (data.message.message[0].data.toLowerCase().startsWith('!uptime')) {
-                     	socket.call('msg', [setting.bot_name + " has been running BeamAlerts for " + moment.utc(moment(moment(),"DD/MM/YYYY HH:mm:ss").diff(moment(start,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")]);
+                     	socket.call('msg', [substitution.sub("uptime",moment.utc(moment(moment(),"DD/MM/YYYY HH:mm:ss").diff(moment(start,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss"),setting.bot_name)]);
                       	macros.CommandLog(moment().format(), data.user_name, "!uptime");
                     }
                     //This stays at the bottom
@@ -124,7 +125,7 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 return socket.auth (channel, userInfo.id, response.body.authkey)
                 .then (() => {
                     console.log("Successfully connected to " + target + "'s stream as " + setting.username);
-                    return socket.call('msg', ['Hi! I\'m ' + setting.bot_name + '!']);
+                    return socket.call('msg', [substitution.sub("join",setting.bot_name)]);
                 });
             })
             .catch (error => {
