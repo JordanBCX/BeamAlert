@@ -5,6 +5,6 @@
     "github":"BeamAlert can be downloaded at https://github.com/jordanlee833/BeamAlert.",
     "help":"Information on BeamAlerts default commands can be found on it's github, at https://github.com/jordanlee833/BeamAlert.",
     "roll":"The random number is %num",
-    "uptime":"%b has been running BeamAlert for %t",
+    "uptime":"%b has been running BeamAlert for %z",
     "join":"Hi! I'm %b"
 }

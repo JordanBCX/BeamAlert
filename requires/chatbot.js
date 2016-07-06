@@ -58,9 +58,8 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 // Chat connection
                 const socket = new BeamSocket (response.body.endpoints).boot();
 
-                // Greet a joined user
+                // Greet a new joined user
                 socket.on ('UserJoin', data => {
-                    //socket.call('msg', [`Hi ${data.username}! I'm pingbot! Write !ping and I will pong back!`]);
                     metUsers.contains(data.username, function(found) {
                         if (found) {
 
@@ -79,36 +78,44 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 // Command execution.
                 //
                 socket.on ('ChatMessage', data => {
+                    //Simple Pong Reply
                     if (data.message.message[0].data.toLowerCase().startsWith('!ping')) {
                         socket.call('whisper', [data.user_name, substitution.sub("ping",data.user_name)]);
                         macros.CommandLog(moment().format(), data.user_name, "!ping");
                     }
+                    //Info Message (Message that bot is running BeamAlerts)
                     else if (data.message.message[0].data.toLowerCase().startsWith('!info')) {
-                        socket.call('msg', [substitution.sub("info",setting.bot_name)]);
+                        socket.call('msg', [substitution.sub("info")]);
                         macros.CommandLog(moment().format(), data.user_name, "!info");
                     }
+                    //Github Link (Link to the project github)
                     else if (data.message.message[0].data.toLowerCase().startsWith('!github')) {
                         socket.call('msg', [substitution.sub("github")]);
                         macros.CommandLog(moment().format(), data.user_name, "!github");
                     }
+                    //Help Message (Info on bot commands)
                     else if (data.message.message[0].data.toLowerCase().startsWith('!help')) {
                         socket.call('msg', [substitution.sub("help")]);
                         macros.CommandLog(moment().format(), data.user_name, "!help");
                     }
+                    //Random Number
                   	else if (data.message.message[0].data.toLowerCase().startsWith('!roll')) {
+                        //Random Number with Specified Max
                       	if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
                           	var max = parseInt(data.message.message[0].data.toLowerCase().split(" ")[1]);
                             var rInt = Math.round(Math.random() * (max - 1) + 1);
                           	socket.call('msg', [substitution.sub("roll",rInt)]);
                        	 	macros.CommandLog(moment().format(), data.user_name, "!roll", "roll result of " + rInt + " with max of " + max);
+                        //Random Number with Unspecified Max (6)
                         } else {
                             var rInt = Math.round(Math.random() * (6 + -1) + 1);
                           	socket.call('msg', [substitution.sub("roll",rInt)]);
                        	 	macros.CommandLog(moment().format(), data.user_name, "!roll", "roll result of " + rInt + " with max of 6.");
                         }
                     }
+                    //Uptime - Length of time bot has been running
                   	else if (data.message.message[0].data.toLowerCase().startsWith('!uptime')) {
-                     	socket.call('msg', [substitution.sub("uptime",moment.utc(moment(moment(),"DD/MM/YYYY HH:mm:ss").diff(moment(start,"DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss"),setting.bot_name)]);
+                     	socket.call('msg', [substitution.sub("uptime")]);
                       	macros.CommandLog(moment().format(), data.user_name, "!uptime");
                     }
                     //This stays at the bottom
