@@ -1,10 +1,10 @@
 {
     "welcome":"Hello, %u, welcome to the stream!",
     "ping":"@%u PONG!",
-    "info":"I'm %b, and I'm running BeamAlert created by @J4Wx and @jordanlee833!",
+    "info":"I'm %b, and I'm running BeamAlert created by @J4Wx and @jordanlee833",
     "github":"BeamAlert can be downloaded at https://github.com/jordanlee833/BeamAlert.",
     "help":"Information on BeamAlerts default commands can be found on it's github, at https://github.com/jordanlee833/BeamAlert.",
-    "roll":"The random number is %num",
-    "uptime":"%b has been running BeamAlert for %z",
-    "join":"Hi! I'm %b"
+    "roll":"The random number is %num.",
+    "uptime":"%b has been running BeamAlert for %z.",
+    "join":"Hi! I'm %b."
 }
