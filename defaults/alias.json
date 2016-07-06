@@ -9,5 +9,9 @@
 
     "!roll":"!roll",
 
-    "!uptime":"!uptime"
+    "!uptime":"!uptime",
+
+    "!compstart":"!compstart",
+
+    "!enter":"!enter"
 }

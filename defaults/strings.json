@@ -6,5 +6,9 @@
     "help":"Information on BeamAlerts default commands can be found on it's github, at https://github.com/jordanlee833/BeamAlert.",
     "roll":"The random number is %num.",
     "uptime":"%b has been running BeamAlert for %z.",
-    "join":"Hi! I'm %b."
+    "join":"Hi! I'm %b.",
+    "compstart":"A competition has begun, type !enter to be in for a chance of winning.",
+    "enter":"You have succesfully entered.",
+    "winner":"The winner is @%w",
+    "nocomp":"No competition is currently running."
 }

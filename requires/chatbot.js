@@ -29,6 +29,9 @@ var target = process.argv[2];
 var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=id", function (response) {
     var body = "";
 
+    var compEntry = false;
+    var compEntries = [];
+
     //Compile Response
     response.on ('data', function (chunk) {
         body += chunk;
@@ -121,6 +124,26 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                   	else if (subbedMessage.startsWith('!uptime')) {
                      	socket.call('msg', [substitution.sub("uptime")]);
                       	macros.CommandLog(moment().format(), data.user_name, "!uptime");
+                    }
+                    else if (subbedMessage.startsWith('!compstart')) {
+                        socket.call('msg', [substitution.sub("compstart")]);
+                        macros.CommandLog(moment().format(), data.user_name, "!compstart");
+                        compEntry = true;
+                        compEntries = [];
+                        setTimeout( function() {
+                             compEntry = false;
+                             var winner = compEntries[Math.floor(Math.random() * compEntries.length)];
+                             socket.call('msg', [substitution.sub("winner",winner)])
+                             macros.CommandLog(moment().format(), "SERVER", "COMPEND", "Winner was " + winner);
+                        }, 10000);
+                    }
+                    else if (subbedMessage.startsWith('!enter')) {
+                        if (compEntry) {
+                            socket.call('whisper', [data.user_name, substitution.sub("enter",data.user_name)]);
+                            compEntries.push(data.user_name);
+                        } else {
+                            socket.call('whisper', [data.user_name, substitution.sub("nocomp",data.user_name)]);
+                        }
                     }
                     //This stays at the bottom
 					else if (data.message.message[0].data.toLowerCase().startsWith('!')) {
