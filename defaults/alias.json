@@ -1,0 +1,13 @@
+{
+    "!help":"!help",
+
+    "!ping":"!ping",
+
+    "!info":"!info",
+
+    "!github":"!github",
+
+    "!roll":"!roll",
+
+    "!uptime":"!uptime"
+}

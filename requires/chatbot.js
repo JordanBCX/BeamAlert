@@ -9,13 +9,15 @@ const client = new BeamClient();
 var fs = require("fs");
 var https = require("https");
 var macros = require('./macros.js');
-var moment = require('moment')
-var substitution = require("./substitution")
+var moment = require('moment');
+var substitution = require("./substitution");
+var alias = require("./alias");
 
 //Load Settings
 var settings = require("../requires/settings")
 var setting = settings.load();
 
+console.log(setting['bot_name']);
 var metUsers = macros.metLoad();
 
 var start = moment();
@@ -79,27 +81,29 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 //
                 socket.on ('ChatMessage', data => {
                     //Simple Pong Reply
-                    if (data.message.message[0].data.toLowerCase().startsWith('!ping')) {
+                    var subbedMessage = alias.convert(data.message.message[0].data.toLowerCase());
+
+                    if (subbedMessage.startsWith('!ping')) {
                         socket.call('whisper', [data.user_name, substitution.sub("ping",data.user_name)]);
                         macros.CommandLog(moment().format(), data.user_name, "!ping");
                     }
                     //Info Message (Message that bot is running BeamAlerts)
-                    else if (data.message.message[0].data.toLowerCase().startsWith('!info')) {
+                    else if (subbedMessage.startsWith('!info')) {
                         socket.call('msg', [substitution.sub("info")]);
                         macros.CommandLog(moment().format(), data.user_name, "!info");
                     }
                     //Github Link (Link to the project github)
-                    else if (data.message.message[0].data.toLowerCase().startsWith('!github')) {
+                    else if (subbedMessage.startsWith('!github')) {
                         socket.call('msg', [substitution.sub("github")]);
                         macros.CommandLog(moment().format(), data.user_name, "!github");
                     }
                     //Help Message (Info on bot commands)
-                    else if (data.message.message[0].data.toLowerCase().startsWith('!help')) {
+                    else if (subbedMessage.startsWith('!help')) {
                         socket.call('msg', [substitution.sub("help")]);
                         macros.CommandLog(moment().format(), data.user_name, "!help");
                     }
                     //Random Number
-                  	else if (data.message.message[0].data.toLowerCase().startsWith('!roll')) {
+                  	else if (subbedMessage.startsWith('!roll')) {
                         //Random Number with Specified Max
                       	if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
                           	var max = parseInt(data.message.message[0].data.toLowerCase().split(" ")[1]);
@@ -114,7 +118,7 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                         }
                     }
                     //Uptime - Length of time bot has been running
-                  	else if (data.message.message[0].data.toLowerCase().startsWith('!uptime')) {
+                  	else if (subbedMessage.startsWith('!uptime')) {
                      	socket.call('msg', [substitution.sub("uptime")]);
                       	macros.CommandLog(moment().format(), data.user_name, "!uptime");
                     }
