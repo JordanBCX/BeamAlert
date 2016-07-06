@@ -17,6 +17,7 @@ function replace(key, one="", two="", three="") {
         break;
         case "github":
             var string = strings.github;
+        break;
         case "help":
             var string = strings.help;
         break;
