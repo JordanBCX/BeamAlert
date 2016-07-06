@@ -8,6 +8,7 @@ console.log("Welcome to the BeamAlerts setup tool.");
 console.log("");
 
 var stringtable = fs.readFileSync('./defaults/strings.json', { encoding: "utf-8" });
+var aliastable = fs.readFileSync('./defaults/alias.json', {encoding: "utf-8" });
 
 try {
     var stats = fs.lstatSync('./user');
@@ -39,6 +40,9 @@ try {
         })
         });
         fs.writeFile('./user/strings.json',stringtable, function (err) {
+            if (err) return console.log(err);
+        })
+        fs.writeFile('./user/alias.json',aliastable, function (err) {
             if (err) return console.log(err);
         })
     });
