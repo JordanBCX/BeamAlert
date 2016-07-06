@@ -7,7 +7,7 @@ function convert(term) {
     if (aliases[`${term}`]) {
         return aliases[`${term}`];
     } else {
-        return "error";
+        return "!error";
     }
 };
 
