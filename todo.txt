@@ -25,6 +25,3 @@ TODO: Back End {
     A back end running on the server logs all of these users, and when queried can return a list of users who have provided "I'm alive!" messages with in the last 2 minutes.
     This means that the server can provide detailed information regarding who is currently running the bot.
 }
-
-CHANGED: Delete Login.txt and first use "node setup.js", follow the instructions and blammo, user directory is created and used.
-Add
