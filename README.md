@@ -44,7 +44,8 @@ If you have any suggestions do not be afraid to create an issue here on GitHub o
 
 ###### Installation
 
-- First, run setup.js (node setup.js) and then follow the instructions given.
+- First, using npm install the required dependencies. (npm install)
+- Then, run setup.js (node setup.js) and then follow the instructions given.
 - Then, run app.js with 1 parameter, the username of the beam.pro stream you would like to join. (For example - "node app.js J4Wx")
 - Any errors should be clearly indicated, if an authentication error occurs then it is likely you entered an invalid username and/or password, you can edit the configured password by deleting your /user folder and running setup again, or by editing settings.json in your user folder.
 
