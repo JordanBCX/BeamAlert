@@ -5,12 +5,15 @@
 "use strict";
 const BeamClient = require('./../ext/bcn');
 const BeamSocket = require('./../ext/bcn/lib/ws');
+const spotifyAPI = require('./../ext/nsw');
 const client = new BeamClient();
 var fs = require("fs");
 var https = require("https");
 var macros = require('./macros.js');
 var moment = require('moment');
 var substitution = require("./substitution");
+
+var spotify = new spotifyAPI.SpotifyWebHelper();
 
 //Load Settings
 var setting = macros.load();
@@ -141,6 +144,17 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                             compEntries.push(data.user_name);
                         } else {
                             socket.call('whisper', [data.user_name, substitution.sub("nocomp",data.user_name)]);
+                        }
+                    }
+                    else if (subbedMessage.startsWith('!song')) {
+                        if (setting.player == "spotify") {
+                            spotify.getStatus(function (err, res) {
+                              if (err) {
+                                return console.error(err);
+                              }
+
+                              socket.call('msg', ["Now Playing: " + res.track.artist_resource.name + " - " + res.track.track_resource.name]);
+                            });
                         }
                     }
                     //This stays at the bottom

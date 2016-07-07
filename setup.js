@@ -30,7 +30,7 @@ try {
                 }
           }
     }, function (err, result) {
-        contents = `{ "username":"${result.username}", "password":"${result.password}", "bot_name":"${result.bot_name}" }`;
+        contents = `{ "username":"${result.username}", "password":"${result.password}", "bot_name":"${result.bot_name}", "player":"none" }`;
         fs.mkdir("./user");
         fs.writeFile('./user/settings.json', contents, function (err) {
             if (err) return console.log(err);

@@ -27,3 +27,8 @@ TODO: Back End {
 }
 
 TODO: ASAP - Add Permissions system using beam usernames.
+
+TODO: Make all features available in discord, including crosschat.
+TODO: Make all features available in twitch, including crosschat.
+
+NOTE: Changing "player":"none" in settings to "player":"spotify" allows access to the !song command.
