@@ -2,6 +2,9 @@
 
 ## Description
 
+V1.0.2 - Added SpotifyAPI (See !song command)
+Will require another "npm install" and deletion of the user folder, before running setup again.
+
 Beam Alert will be a Notification Bot built for Beam.pro using node.js.
 
 Beam Alert will provide a web-based control panel and web-based alerting system and a chat bot with many features.
@@ -31,7 +34,9 @@ Beam Alert will provide a web-based control panel and web-based alerting system 
 - !help - replies with a link to the projects github, referencing this very command list.
 - !roll (number) - replies with a random integer between 1 and the provided number inclusive. If no number is provided then the bot defaults to 6.
 - !uptime - replies with the current length of the bot's session.
-
+- !compstart - Begin a competition (currently only runs for 10 seconds.)
+- !enter - Enter the currently running competition.
+- !song - If the user changes setting "player" to "spotify" instead of none, then the !song command becomes available for use, returning the currently playing spotify song of the host.
 
 ###### Suggestions
 
