@@ -4,8 +4,8 @@
 // @Description: http://github.com/jordanlee833/BeamAlerts - String Table Conversion
 var fs = require("fs")
 var moment = require("moment")
-var settings = require("../requires/settings")
-var setting = settings.load();
+var macros = require("./macros")
+var setting = macros.load();
 var start = moment();
 
 function replace(key, one="", two="", three="") {

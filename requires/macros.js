@@ -41,7 +41,27 @@ Array.prototype.contains = function(k, callback) {
     }(0));
 }
 
+function loadSettings() {
+    var content = fs.readFileSync('./user/settings.json', {encoding: "utf-8"});
+    var settings = JSON.parse(content)
+
+    return settings;
+};
+
+function convert(term) {
+    var content = fs.readFileSync('./user/alias.json', {encoding: "utf-8"});
+    var aliases = JSON.parse(content);
+
+    if (aliases[`${term}`]) {
+        return aliases[`${term}`];
+    } else {
+        return "!error";
+    }
+};
+
 //Define commands
 module.exports.CommandLog = CommandLog;
 module.exports.ErrorLog = ErrorLog;
 module.exports.metLoad = metLoad;
+module.exports.load = loadSettings;
+module.exports.convert = convert;

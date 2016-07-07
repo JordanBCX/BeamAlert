@@ -11,11 +11,9 @@ var https = require("https");
 var macros = require('./macros.js');
 var moment = require('moment');
 var substitution = require("./substitution");
-var alias = require("./alias");
 
 //Load Settings
-var settings = require("../requires/settings")
-var setting = settings.load();
+var setting = macros.load();
 
 console.log(setting['bot_name']);
 var metUsers = macros.metLoad();
@@ -84,7 +82,7 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 //
                 socket.on ('ChatMessage', data => {
                     //Simple Pong Reply
-                    var subbedMessage = alias.convert(data.message.message[0].data.toLowerCase());
+                    var subbedMessage = macros.convert(data.message.message[0].data.toLowerCase());
 
                     if (subbedMessage.startsWith('!ping')) {
                         socket.call('whisper', [data.user_name, substitution.sub("ping",data.user_name)]);
