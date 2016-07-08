@@ -34,9 +34,20 @@ Beam Alert will provide a web-based control panel and web-based alerting system 
 - !help - replies with a link to the projects github, referencing this very command list.
 - !roll (number) - replies with a random integer between 1 and the provided number inclusive. If no number is provided then the bot defaults to 6.
 - !uptime - replies with the current length of the bot's session.
-- !compstart - Begin a competition (currently only runs for 10 seconds.)
 - !enter - Enter the currently running competition.
 - !song - If the user changes setting "player" to "spotify" instead of none, then the !song command becomes available for use, returning the currently playing spotify song of the host.
+
+### Owner Only
+- !setowner (username) - Adds an owner
+- !removeowner (username) - ...
+- !setadmin (username) - ...
+- !removeowner (username) - ...
+- !setmod (username) - ...
+- !removemod (username) - ...
+
+### Admin+ Only
+- !compstart (seconds) - Begin a competition lasting the specified number of seconds. If no time specified then will default to 10 seconds.
+
 
 ###### Suggestions
 

@@ -1,7 +1,7 @@
 {
   "name": "BeamAlerts",
   "description": "Beam Alerts is a notification bot built for beam.pro using node.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "contributors": [
     {
       "name": "Jamie Wood",

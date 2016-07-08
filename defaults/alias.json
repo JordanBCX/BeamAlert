@@ -16,5 +16,12 @@
 
     "!enter":"!enter",
 
-    "!song":"!song"
+    "!song":"!song",
+
+    "!setowner":"!setowner",
+    "!removeowner":"!removeowner",
+    "!setadmin":"!setadmin",
+    "!removeadmin":"!removeadmin",
+    "!setmod":"!setmod",
+    "!removemod":"!removemod"
 }

@@ -46,7 +46,13 @@ function replace(key, one="", two="", three="") {
             var string = strings.enter;
         break;
         case "winner":
-            var string = strings.winner.replace("%w",one);
+            var string = strings.winner.replace("%w",one).replace("%e",two);
+        break;
+        case "noperm":
+            var string = strings.noperm;
+        break;
+        case "noentries":
+            var string = strings.noentries;
         break;
         default:
             console.log("substition: invalid string requested.");

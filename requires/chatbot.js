@@ -86,7 +86,6 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                 socket.on ('ChatMessage', data => {
                     //Simple Pong Reply
                     var subbedMessage = macros.convert(data.message.message[0].data.toLowerCase());
-
                     if (subbedMessage.startsWith('!ping')) {
                         socket.call('whisper', [data.user_name, substitution.sub("ping",data.user_name)]);
                         macros.CommandLog(moment().format(), data.user_name, "!ping");
@@ -127,16 +126,32 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
                       	macros.CommandLog(moment().format(), data.user_name, "!uptime");
                     }
                     else if (subbedMessage.startsWith('!compstart')) {
-                        socket.call('msg', [substitution.sub("compstart")]);
-                        macros.CommandLog(moment().format(), data.user_name, "!compstart");
-                        compEntry = true;
-                        compEntries = [];
-                        setTimeout( function() {
-                             compEntry = false;
-                             var winner = compEntries[Math.floor(Math.random() * compEntries.length)];
-                             socket.call('msg', [substitution.sub("winner",winner)])
-                             macros.CommandLog(moment().format(), "SERVER", "COMPEND", "Winner was " + winner);
-                        }, 10000);
+                        var time = 0;
+                        if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
+                            time = parseInt(data.message.message[0].data.toLowerCase().split(" ")[1]);
+                        } else {
+                            time = 10
+                        }
+
+                        if (macros.perms("admin", data.user_name)) {
+                            socket.call('msg', [substitution.sub("compstart")]);
+                            macros.CommandLog(moment().format(), data.user_name, "!compstart");
+                            compEntry = true;
+                            compEntries = [];
+                            setTimeout( function() {
+                                 compEntry = false;
+                                 if (compEntries.length > 0) {
+                                     var winner = compEntries[Math.floor(Math.random() * compEntries.length)];
+                                     socket.call('msg', [substitution.sub("winner",winner,compEntries.length)]);
+                                     macros.CommandLog(moment().format(), "SERVER", "COMPEND", "Winner was " + winner);
+                                 } else {
+                                     socket.call('msg', [substitution.sub("noentries")]);
+                                     macros.CommandLog(moment().format(), "SERVER", "COMPEND", "No Entries");
+                                 }
+                            }, time * 1000);
+                        } else {
+                            socket.call('whisper', [data.user_name, substitution.sub("noperm")]);
+                        }
                     }
                     else if (subbedMessage.startsWith('!enter')) {
                         if (compEntry) {
@@ -155,6 +170,153 @@ var request = https.get("https://beam.pro/api/v1/channels/" + target + "?fields=
 
                               socket.call('msg', ["Now Playing: " + res.track.artist_resource.name + " - " + res.track.track_resource.name]);
                             });
+                        }
+                    }
+                    else if (subbedMessage.startsWith('!setowner')) {
+                        if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
+                            if (macros.perms("owner", data.user_name)) {
+
+                                var file = fs.readFileSync("./user/permissions.json")
+                                var contents = JSON.parse(file)
+                                contents.owner.push(data.message.message[0].data.toLowerCase().split(" ")[1])
+
+                                fs.writeFile("./user/permissions.json", JSON.stringify(contents, null, 4), function(err) {
+                                    if(err) {
+                                         console.log(err);
+                                     } else {
+                                         console.log("PERMISSIONS UPDATED");
+                                         socket.call('whisper', [data.user_name, "Permissions Updated",data.user_name]);
+                                     }
+                                });
+
+                            } else {
+                                socket.call('whisper', [data.user_name, substitution.sub("noperm")]);
+                            }
+                        }
+                    }
+                    else if (subbedMessage.startsWith('!removeowner')) {
+                        if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
+                            if (macros.perms("owner", data.user_name)) {
+
+                                var file = fs.readFileSync("./user/permissions.json")
+                                var contents = JSON.parse(file)
+
+                                for (var i=contents.owner.length-1; i>=0; i--) {
+                                    if (contents.owner[i] === data.message.message[0].data.toLowerCase().split(" ")[1]) {
+                                        contents.owner.splice(i, 1);
+                                    }
+                                }
+
+                                fs.writeFile("./user/permissions.json", JSON.stringify(contents, null, 4), function(err) {
+                                    if(err) {
+                                         console.log(err);
+                                     } else {
+                                         console.log("PERMISSIONS UPDATED");
+                                         socket.call('whisper', [data.user_name, "Permissions Updated",data.user_name]);
+                                     }
+                                });
+
+                            } else {
+                                socket.call('whisper', [data.user_name, substitution.sub("noperm")]);
+                            }
+                        }
+                    }
+                    else if (subbedMessage.startsWith('!setadmin')) {
+                        if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
+                            if (macros.perms("owner", data.user_name)) {
+
+                                var file = fs.readFileSync("./user/permissions.json")
+                                var contents = JSON.parse(file)
+                                contents.admin.push(data.message.message[0].data.toLowerCase().split(" ")[1])
+
+                                fs.writeFile("./user/permissions.json", JSON.stringify(contents, null, 4), function(err) {
+                                    if(err) {
+                                         console.log(err);
+                                     } else {
+                                         console.log("PERMISSIONS UPDATED");
+                                         socket.call('whisper', [data.user_name, "Permissions Updated",data.user_name]);
+                                     }
+                                });
+
+                            } else {
+                                socket.call('whisper', [data.user_name, substitution.sub("noperm")]);
+                            }
+                        }
+                    }
+                    else if (subbedMessage.startsWith('!removeadmin')) {
+                        if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
+                            if (macros.perms("owner", data.user_name)) {
+
+                                var file = fs.readFileSync("./user/permissions.json")
+                                var contents = JSON.parse(file)
+
+                                for (var i=contents.admin.length-1; i>=0; i--) {
+                                    if (contents.admin[i] === data.message.message[0].data.toLowerCase().split(" ")[1]) {
+                                        contents.admin.splice(i, 1);
+                                    }
+                                }
+
+                                fs.writeFile("./user/permissions.json", JSON.stringify(contents, null, 4), function(err) {
+                                    if(err) {
+                                         console.log(err);
+                                     } else {
+                                         console.log("PERMISSIONS UPDATED");
+                                         socket.call('whisper', [data.user_name, "Permissions Updated",data.user_name]);
+                                     }
+                                });
+
+                            } else {
+                                socket.call('whisper', [data.user_name, substitution.sub("noperm")]);
+                            }
+                        }
+                    }
+                    else if (subbedMessage.startsWith('!setmod')) {
+                        if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
+                            if (macros.perms("owner", data.user_name)) {
+
+                                var file = fs.readFileSync("./user/permissions.json")
+                                var contents = JSON.parse(file)
+                                contents.mod.push(data.message.message[0].data.toLowerCase().split(" ")[1])
+
+                                fs.writeFile("./user/permissions.json", JSON.stringify(contents, null, 4), function(err) {
+                                    if(err) {
+                                         console.log(err);
+                                     } else {
+                                         console.log("PERMISSIONS UPDATED");
+                                         socket.call('whisper', [data.user_name, "Permissions Updated",data.user_name]);
+                                     }
+                                });
+
+                            } else {
+                                socket.call('whisper', [data.user_name, substitution.sub("noperm")]);
+                            }
+                        }
+                    }
+                    else if (subbedMessage.startsWith('!removemod')) {
+                        if (data.message.message[0].data.toLowerCase().split(" ").length == 2) {
+                            if (macros.perms("owner", data.user_name)) {
+
+                                var file = fs.readFileSync("./user/permissions.json")
+                                var contents = JSON.parse(file)
+
+                                for (var i=contents.mod.length-1; i>=0; i--) {
+                                    if (contents.mod[i] === data.message.message[0].data.toLowerCase().split(" ")[1]) {
+                                        contents.mod.splice(i, 1);
+                                    }
+                                }
+
+                                fs.writeFile("./user/permissions.json", JSON.stringify(contents, null, 4), function(err) {
+                                    if(err) {
+                                         console.log(err);
+                                     } else {
+                                         console.log("PERMISSIONS UPDATED");
+                                         socket.call('whisper', [data.user_name, "Permissions Updated",data.user_name]);
+                                     }
+                                });
+
+                            } else {
+                                socket.call('whisper', [data.user_name, substitution.sub("noperm")]);
+                            }
                         }
                     }
                     //This stays at the bottom

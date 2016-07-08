@@ -9,6 +9,8 @@
     "join":"Hi! I'm %b.",
     "compstart":"A competition has begun, type !enter to be in for a chance of winning.",
     "enter":"You have succesfully entered.",
-    "winner":"The winner is @%w",
-    "nocomp":"No competition is currently running."
+    "winner":"The winner is @%w of %e entries!",
+    "noentries":"The competition had no entries!",
+    "nocomp":"No competition is currently running.",
+    "noperm":"You do not have permission to use this command."
 }
