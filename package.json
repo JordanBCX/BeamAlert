@@ -1,7 +1,7 @@
 {
   "name": "BeamAlerts",
   "description": "Beam Alerts is a notification bot built for beam.pro using node.js",
-  "version": "0.1",
+  "version": "0.0.1",
   "contributors": [
     {
       "name": "Jamie Wood",
@@ -23,7 +23,7 @@
     "ws": "1.1.1"
   },
   "bugs": {
-    "web": "https://github.com/jordanlee833/BeamAlert/issues"
+    "url": "https://github.com/jordanlee833/BeamAlert/issues"
   },
   "repository": [
     {
@@ -32,5 +32,5 @@
     }
   ],
   "license": "MIT",
-  "homepage": "theibex.net"
+  "homepage": "http://theibex.net"
 }
