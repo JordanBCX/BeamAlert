@@ -16,7 +16,7 @@
     "wintools" : ">=0.1.0",
     "bluebird": "3.4.1",
     "colors": "1.1.2",
-    "lodash": "4.13.1",
+    "lodash": "4.17.15",
     "moment": "2.14.1",
     "prompt": "1.0.0",
     "request": "2.72.0",
